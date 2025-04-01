@@ -1,4 +1,4 @@
-export default function urlNavBuilder(topic, page, sort_by) {
+export default function urlNavBuilder(topic, page, sortBy, order) {
   let url = `/articles`;
 
   if (topic) {
@@ -9,7 +9,13 @@ export default function urlNavBuilder(topic, page, sort_by) {
     url += `?page=${page}`;
   }
 
-  if (sort_by) console.log(url);
+  if (sortBy) {
+    url += `&sortBy=${sortBy}`;
+  }
+
+  if (order) {
+    url += `&order=${order}`;
+  }
 
   return url;
 }

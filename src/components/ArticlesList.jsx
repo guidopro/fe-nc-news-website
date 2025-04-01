@@ -1,23 +1,40 @@
 import { useEffect, useState } from "react";
 import { LoadingCards } from "./skeletons/LoadingCards";
 import { getArticles } from "../api-requests/api-requests-axios";
-import { Link, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useSearchParams,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { ErrorComponent } from "./Error";
 import { dateParser } from "../functions/functions";
+import urlNavBuilder from "../functions/urlNavBuilder";
 
-export default function ArticlesList({ topic, setArticleCount, page }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sortByQuery = searchParams.get("sort_by");
-  const orderQuery = searchParams.get("order");
-  const pageQuery = searchParams.get("p");
+export default function ArticlesList({
+  setArticleCount,
+  topic,
+  page,
+  sortBy,
+  order,
+}) {
+  // const { topic } = useParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const sortByQ = searchParams.get("sort_by");
+  // const orderQ = searchParams.get("order");
+  // const pageQ = searchParams.get("p");
+
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const url = urlNavBuilder(topic, page, sortBy, order);
+    navigate(url);
     setError(null);
     setIsLoading(true);
-    getArticles(topic, sortByQuery, orderQuery, page)
+    getArticles(topic, sortBy, order, page)
       .then(({ data }) => {
         setArticleCount(data.total_count);
         setArticles(data.articles);
@@ -28,7 +45,7 @@ export default function ArticlesList({ topic, setArticleCount, page }) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [topic, sortByQuery, orderQuery, page]);
+  }, [topic, sortBy, order, page]);
 
   if (error) {
     const message = "There are currently no articles with this topic";

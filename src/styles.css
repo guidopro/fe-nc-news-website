@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* @import "flowbite/src/themes/default" */
+
 
 :root {
   background-color: rgba(0, 0, 0, 0.372);
