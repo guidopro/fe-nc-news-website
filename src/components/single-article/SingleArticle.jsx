@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { getSingleArticle } from "../../api-requests-axios";
+import { getSingleArticle } from "../../api-requests/api-requests-axios";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingSingleArticle from "../skeletons/LoadingSingleArticle";
 import CommentsSection from "./CommentsSection";
 import Like from "./Like";
 import NewComment from "./NewComment";
 import { ErrorComponent } from "../Error";
+import { dateParser } from "../../functions/functions";
 
 export default function SingleArticle() {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ export default function SingleArticle() {
       })
       .catch((err) => {
         setError(err);
-        console.log(err);
       })
       .finally(() => {
         setIsLoading(false);
@@ -31,7 +31,9 @@ export default function SingleArticle() {
   }, []);
 
   if (error) {
-    return <ErrorComponent message={error.message} />;
+    if (error.status === 404) {
+      return <ErrorComponent message={"Article not found"} />;
+    }
   }
 
   return (
@@ -68,19 +70,24 @@ export default function SingleArticle() {
             <div key={article.article_id} className="p-4 md:w-1/1">
               <div className="h-full border-2 border-gray-200 rounded-lg overflow-hidden">
                 {isLoading && <LoadingSingleArticle />}
+
                 <img
                   className="max-h-100 w-full object-cover object-center"
                   src={article.article_img_url}
                   alt={article.title}
                 />
+
                 <div className="p-6 ">
                   <h2 className="tracking-widest text-xs title-font font-medium text-gray-700 mb-1">
                     CATEGORY
                   </h2>
-                  <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
+                  <h1 className="title-font text-lg font-medium text-gray-900 mb-3 capitalize">
                     {article.topic}
                   </h1>
-                  <p className="leading-relaxed mb-3">{article.title}</p>
+                  <time className="mb-4 font-light">
+                    {article?.created_at ? dateParser(article.created_at) : ""}
+                  </time>
+                  <p className="leading-relaxed my-3">{article.title}</p>
                   <div className="flex items-center flex-wrap">
                     <span className="text-gray-600 inline-flex items-center leading-none text-sm">
                       <svg

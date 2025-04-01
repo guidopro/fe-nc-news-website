@@ -1,64 +1,67 @@
 import { useEffect, useState } from "react";
 import { LoadingCards } from "./skeletons/LoadingCards";
-import { getArticles } from "../api-requests-axios";
+import { getArticles } from "../api-requests/api-requests-axios";
 import { Link, useSearchParams } from "react-router-dom";
+import { ErrorComponent } from "./Error";
+import { dateParser } from "../functions/functions";
 
-export default function ArticlesList({ topic }) {
+export default function ArticlesList({ topic, setArticleCount, page }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortByQuery = searchParams.get("sort_by");
   const orderQuery = searchParams.get("order");
+  const pageQuery = searchParams.get("p");
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    setError(null);
     setIsLoading(true);
-    getArticles(topic, sortByQuery, orderQuery).then(({ data }) => {
-      setArticles(data.articles);
-      setIsLoading(false);
-    });
-  }, [topic, sortByQuery, orderQuery]);
+    getArticles(topic, sortByQuery, orderQuery, page)
+      .then(({ data }) => {
+        setArticleCount(data.total_count);
+        setArticles(data.articles);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [topic, sortByQuery, orderQuery, page]);
+
+  if (error) {
+    const message = "There are currently no articles with this topic";
+    return <ErrorComponent message={message} />;
+  }
 
   const formattedArticles = articles.map((article) => {
     return (
-      <div key={article.article_id} className="p-4 md:w-1/3 ">
-        <div className="h-full border-2 border-gray-200 rounded-lg overflow-hidden">
-          <Link to={`/${article.topic}/${article.article_id}`}>
-            <img
-              className="lg:h-48 md:h-36 w-full object-cover object-center"
-              src={article.article_img_url}
-              alt={article.title}
-            />
-          </Link>
+      <div key={article.article_id} className="p-4 md:w-1/3">
+        <div className="relative isolate h-full border-2 border-gray-200 rounded-lg overflow-hidden hover:bg-zinc-400 hover:scale-101">
+          <img
+            className="lg:h-48 md:h-36 w-full object-cover object-center"
+            src={article.article_img_url}
+            alt={article.title}
+          />
 
           <div className="p-6">
             <h2 className="tracking-widest text-xs title-font font-medium text-gray-700 mb-1">
               CATEGORY
             </h2>
-            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-              {article.topic}
-            </h1>
-            <p className="leading-relaxed mb-3">{article.title}</p>
-            <div className="flex items-center flex-wrap">
-              <Link
-                to={`/${article.topic}/${article.article_id}`}
-                className="text-indigo-500 inline-flex items-center md:mb-2
-                lg:mb-0"
-              >
-                {" "}
-                Read
-                <svg
-                  className="w-4 h-4 ml-2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5l7 7-7 7"></path>
-                </svg>
+            <h1 className="title-font text-lg font-medium text-gray-900 mb-3 capitalize">
+              <Link to={`/articles/${article.topic}/${article.article_id}`}>
+                <span className="absolute inset-0 z-10"></span>
+                {article.topic}
               </Link>
+            </h1>
+            <div className="flex">
+              <time className="mb-4 font-light">
+                {dateParser(article.created_at)}
+              </time>
+            </div>
+            <p className="leading-relaxed mb-3">{article.title}</p>
+            <div className="absolute bottom-0 right-0 mb-2 mr-2">
               <span className="text-gray-600 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-300">
                 <svg
                   className="w-4 h-4 mr-1"
@@ -96,7 +99,7 @@ export default function ArticlesList({ topic }) {
 
   return (
     <section className="text-gray-700 body-font">
-      <div className="container px-5 py-24 mx-auto">
+      <div className="container px-5 py-10 mx-auto">
         <p className="flex justify-center m-4">
           {isLoading ? "Loading..." : null}
         </p>

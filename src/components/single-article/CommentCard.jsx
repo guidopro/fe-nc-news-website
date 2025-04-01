@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { UserContext } from "../contexts/user";
-import { deleteComment, getUsername } from "../../api-requests-axios";
+import {
+  deleteComment,
+  getUsername,
+} from "../../api-requests/api-requests-axios";
 import { DeleteButton } from "../Buttons";
 import Spinner from "../Spinner";
+import { dateParser } from "../../functions/functions";
 
 export default function CommentCard({
   createdAt,
@@ -51,7 +55,7 @@ export default function CommentCard({
                   {author}
                 </div>
                 <time className="mb-1 text-xs font-normal text-gray-400 sm:mb-0">
-                  {createdAt}
+                  {dateParser(createdAt)}
                 </time>
               </div>
               <div>

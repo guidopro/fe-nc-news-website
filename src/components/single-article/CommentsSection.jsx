@@ -3,7 +3,7 @@ import {
   getCommentsByArticleId,
   getUsername,
   getUsers,
-} from "../../api-requests-axios";
+} from "../../api-requests/api-requests-axios";
 import CommentCard from "./CommentCard";
 
 export default function CommentsSection({ article_id, newPost }) {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DisabledButton, SubmitButton } from "../Buttons";
-import { postComment } from "../../api-requests-axios";
+import { postComment } from "../../api-requests/api-requests-axios";
 
 export default function NewComment({ article_id, setNewPost }) {
   const user = "tickle122";

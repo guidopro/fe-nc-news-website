@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { patchVoteForArticle } from "../../api-requests-axios";
+import { patchVoteForArticle } from "../../api-requests/api-requests-axios";
 import ErrorMessage from "../ErrorMessage";
 
 export default function Like({ votes, id }) {
@@ -77,7 +77,7 @@ export default function Like({ votes, id }) {
           <span className="sr-only">Icon description</span>
         </button>
         <p className=" border-blue-700 font-medium text-white rounded-lg text-sm p-2.5 text-center inline-flex items-center">
-          {votes + likeCount}
+          {(votes || 0) + likeCount}
         </p>
         <button
           type="button"

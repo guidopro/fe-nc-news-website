@@ -2,21 +2,17 @@ import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: "https://guys-app.onrender.com/api",
-  //   timeout: 1000,
+  // timeout: 1000,
 });
 
-export const getArticles = async (topic, sort_by, order) => {
+export const getArticles = async (topic, sort_by, order, p) => {
   return await apiClient.get("/articles", {
-    params: { topic, sort_by, order },
+    params: { topic, sort_by, order, p },
   });
 };
 
 export const getSingleArticle = async (id) => {
-  try {
-    return await apiClient.get(`/articles/${id}`);
-  } catch (err) {
-    console.log(err, "error");
-  }
+  return await apiClient.get(`/articles/${id}`);
 };
 
 export const getCommentsByArticleId = async (id) => {
@@ -60,4 +56,9 @@ export const postComment = async (id, comment) => {
 
 export const deleteComment = async (commentId) => {
   const response = await apiClient.delete(`/comments/${commentId}`);
+};
+
+export const getTopics = async () => {
+  const response = await apiClient.get("/topics");
+  return response.data.topics;
 };

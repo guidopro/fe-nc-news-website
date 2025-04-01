@@ -1,13 +1,19 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
-export default function SortBy() {
+export default function SortBy({ setPage, setSortBy }) {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate();
+  }
+
   return (
-    <Menu as="div" className="absolute right-3 inline-block text-left">
+    <Menu as="div" className="absolute right-3 inline-block text-left mt-10">
       <div>
         <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50">
-          sort by
+          Sort by {}
           <ChevronDownIcon
             aria-hidden="true"
             className="-mr-1 size-5 text-gray-400"
@@ -21,51 +27,73 @@ export default function SortBy() {
       >
         <div className="py-1">
           <MenuItem>
-            <Link
+            <NavLink
               to="?sort_by=created_at"
-              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+              className={
+                (({ isActive }) =>
+                  isActive ? "text-red-500 underline" : "text-black",
+                "block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden")
+              }
+              onClick={() => {
+                setPage(1);
+              }}
             >
-              date
-            </Link>
+              Date
+            </NavLink>
           </MenuItem>
           <MenuItem>
             <Link
               to="?sort_by=comment_count"
               className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+              onClick={() => {
+                setPage(1);
+              }}
             >
-              comment count
+              Comment count
             </Link>
           </MenuItem>
           <MenuItem>
             <Link
               to="?sort_by=votes"
               className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+              onClick={() => {
+                setPage(1);
+              }}
             >
-              likes
+              Likes
             </Link>
           </MenuItem>
           <MenuItem>
             <Link
               to="?sort_by=created_at&order=asc"
               className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+              onClick={() => {
+                setPage(1);
+              }}
             >
-              date (oldest)
+              Date (oldest)
             </Link>
           </MenuItem>
           <MenuItem>
             <Link
               to="?sort_by=comment_count&order=asc"
               className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+              onClick={() => {
+                setPage(1);
+              }}
             >
-              comment count (least)
+              Comment count (least)
             </Link>
           </MenuItem>
           <MenuItem>
             <Link
               to="?sort_by=votes&order=asc"
               className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+              onClick={() => {
+                setPage(1);
+              }}
             >
-              likes (least)
+              Likes (least)
             </Link>
           </MenuItem>
         </div>
