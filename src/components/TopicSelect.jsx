@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { getTopics } from "../api-requests/api-requests-axios"
-
+import { getTopics } from "../api-requests/api-requests-axios";
 
 export default function TopicSelect({ setPage, setTopic }) {
   const [allTopics, setAllTopics] = useState([]);
@@ -31,7 +30,7 @@ export default function TopicSelect({ setPage, setTopic }) {
   });
 
   return (
-    <ul className="flex flex-wrap justify-center gap-4 mt-10">
+    <ul className="flex flex-wrap justify-evenly gap-4 mt-10 ">
       <li
         className="hover:font-bold hover:cursor-pointer"
         onClick={() => {

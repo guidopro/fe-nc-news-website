@@ -7,7 +7,7 @@ export default function Header() {
         <img className="size-27 " src="/world_travel_icon_134840.webp" />
       </Link>
       <Link to="/">
-        <h1 className="text-6xl font-mono bg-amber-50  ">NC-News</h1>
+        <h1 className="inline text-6xl font-mono bg-amber-50 p-1">NC-News</h1>
       </Link>
     </div>
   );

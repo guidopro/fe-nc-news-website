@@ -41,13 +41,15 @@ const Home = () => {
     <>
       <Intro />
       <TopicSelect setPage={setPage} setTopic={setTopic} />
-      <SortBy setPage={setPage} setSortBy={setSortBy} setOrder={setOrder} />
-      <Pagination
-        articleCount={articleCount}
-        setPage={setPage}
-        page={page}
-        limit={limit}
-      />
+      <div className="flex flex-wrap justify-center gap-4 mt-8 items-start">
+        <Pagination
+          articleCount={articleCount}
+          setPage={setPage}
+          page={page}
+          limit={limit}
+        />
+        <SortBy setPage={setPage} setSortBy={setSortBy} setOrder={setOrder} />
+      </div>
       <ArticlesList
         setArticleCount={setArticleCount}
         topic={topic}
