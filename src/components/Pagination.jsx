@@ -3,7 +3,7 @@ export default function Pagination({ articleCount, setPage, page, limit }) {
 
   return (
     <>
-      <div className="flex flex-col items-center border">
+      <div className="flex flex-col items-center">
         <span className="text-sm text-gray-700 dark:text-black">
           Showing{" "}
           <span className="font-semibold text-gray-900 dark:text-white">

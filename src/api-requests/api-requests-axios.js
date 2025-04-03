@@ -25,21 +25,13 @@ export const getCommentsByArticleId = async (id) => {
 };
 
 export const getUsers = async () => {
-  try {
-    const response = await apiClient.get("/users");
-    return response.data.users;
-  } catch (err) {
-    console.log(err, "error");
-  }
+  const response = await apiClient.get("/users");
+  return response.data.users;
 };
 
 export const getUsername = async (username) => {
-  try {
-    const response = await apiClient.get(`/users/${username}`);
-    return response.data.user;
-  } catch (err) {
-    console.log(err, "error");
-  }
+  const response = await apiClient.get(`/users/${username}`);
+  return response.data.user;
 };
 
 export const patchVoteForArticle = async (id, vote) => {
@@ -61,4 +53,11 @@ export const deleteComment = async (commentId) => {
 export const getTopics = async () => {
   const response = await apiClient.get("/topics");
   return response.data.topics;
+};
+
+export const patchCommentVote = async (commentId, vote) => {
+  const response = await apiClient.patch(`/comments/${commentId}`, {
+    inc_votes: vote,
+  });
+  return response.data.updatedComment;
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/user";
 import {
   deleteComment,
@@ -7,6 +7,7 @@ import {
 import { DeleteButton } from "../Buttons";
 import Spinner from "../Spinner";
 import { dateParser } from "../../functions/functions";
+import LikeComment from "./LikeComment";
 
 export default function CommentCard({
   createdAt,
@@ -14,8 +15,10 @@ export default function CommentCard({
   body,
   commentId,
   setCommentDelete,
+  votes,
 }) {
-  const user = "tickle122";
+  const { user } = useContext(UserContext);
+
   const [commentAuthor, setCommentAuthor] = useState({});
   const [isLoading, setIsLoading] = useState(null);
 
@@ -58,8 +61,9 @@ export default function CommentCard({
                   {dateParser(createdAt)}
                 </time>
               </div>
+
               <div>
-                {user === author ? (
+                {user.username === author ? (
                   isLoading ? null : (
                     <DeleteButton
                       handleCommentDeletion={handleCommentDeletion}
@@ -70,6 +74,9 @@ export default function CommentCard({
             </div>
             <div className="p-3 text-xs italic font-normal text-gray-500 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300">
               {body}
+            </div>
+            <div className="flex justify-center mt-4">
+              <LikeComment votes={votes} id={commentId} />
             </div>
           </>
         )}

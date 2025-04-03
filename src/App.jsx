@@ -11,16 +11,20 @@ import NotFound from "./components/NotFound";
 import TopicSelect from "./components/TopicSelect";
 import Header from "./components/Header";
 import Intro from "./components/Intro";
+import SignIn from "./components/SignIn/SignIn";
+import SignInPage from "./components/SignIn/SignInPage";
 
 function App() {
   return (
     <>
+      <SignIn />
       <Header />
       <Routes>
         <Route index element={<Home />} />
         <Route path="articles?" element={<Home />} />
         <Route path="articles/:topic" element={<Home />} />
         <Route path="articles/:topic/:article_id" element={<SingleArticle />} />
+        <Route path="sign-in" element={<SignInPage />}></Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
@@ -41,14 +45,16 @@ const Home = () => {
     <>
       <Intro />
       <TopicSelect setPage={setPage} setTopic={setTopic} />
-      <div className="flex flex-wrap justify-center gap-4 mt-8 items-start">
+      <div className="flex flex-row-reverse">
+        <SortBy setPage={setPage} setSortBy={setSortBy} setOrder={setOrder} />
+      </div>
+      <div className="flex justify-center">
         <Pagination
           articleCount={articleCount}
           setPage={setPage}
           page={page}
           limit={limit}
         />
-        <SortBy setPage={setPage} setSortBy={setSortBy} setOrder={setOrder} />
       </div>
       <ArticlesList
         setArticleCount={setArticleCount}

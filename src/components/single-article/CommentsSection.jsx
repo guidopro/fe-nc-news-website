@@ -35,6 +35,7 @@ export default function CommentsSection({ article_id, newPost }) {
         author={comment.author}
         body={comment.body}
         setCommentDelete={setCommentDelete}
+        votes={comment.votes}
       />
     );
   });
