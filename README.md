@@ -2,15 +2,15 @@
 
 Welcome!
 
-Link to the site: [https://nc-news-guidopro.netlify.app](url)
+Link to the site: [https://nc-news-guidopro.netlify.app](https://nc-news-guidopro.netlify.app)
 
 This app is a front-end articles website where users can perform basic CRUD operations, such as voting, commenting, and deleting comments.
 
 This project was my first attempt at building a front-end application, created using React in combination with JavaScript, HTML, and CSS. It interacts with a backend server, which was also specifically developed for this project.
 
-You can find the backend server at the following URL: [https://guys-app.onrender.com/api/](url)
+You can find the backend server at the following URL: [https://guys-app.onrender.com/api/](https://guys-app.onrender.com/api/)
 
-Also, the code for the backend can be found at: [https://github.com/guidopro/nc-news-project](url)
+Also, the code for the backend can be found at: [https://github.com/guidopro/nc-news-project](https://github.com/guidopro/nc-news-project)
 
 The minimum required version of Node to run the project locally is v22.13.0.
 
