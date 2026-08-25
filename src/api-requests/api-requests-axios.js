@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://guys-app.onrender.com/api",
+  baseURL: "https://nc-news-api-frankfurt.onrender.com/api",
   // timeout: 1000,
 });
 
