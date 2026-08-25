@@ -8,7 +8,7 @@ This app is a front-end articles website where users can perform basic CRUD oper
 
 This project was my first attempt at building a front-end application, created using React in combination with JavaScript, HTML, and CSS. It interacts with a backend server, which was also specifically developed for this project.
 
-You can find the backend server at the following URL: [https://guys-app.onrender.com/api/](https://guys-app.onrender.com/api/)
+You can find the backend server at the following URL: [https://nc-news-api-frankfurt.onrender.com/api/](https://nc-news-api-frankfurt.onrender.com/api/)
 
 Also, the code for the backend can be found at: [https://github.com/guidopro/nc-news-project](https://github.com/guidopro/nc-news-project)
 
@@ -31,5 +31,3 @@ Start the development server:
 Thank you for checking out this project!
 
 This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
-
-
