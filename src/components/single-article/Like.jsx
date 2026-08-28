@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../contexts/user";
 import { patchVoteForArticle } from "../../api-requests/api-requests-axios";
 import ErrorMessage from "../ErrorMessage";
 
@@ -7,8 +8,14 @@ export default function Like({ votes, id }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [error, setError] = useState(null);
+  const { user } = useContext(UserContext);
 
   const handleLike = () => {
+    if (!user) {
+      setError("You must be signed in to vote");
+      return;
+    }
+
     if (!isLiked) {
       setLikeCount((currCount) => {
         return currCount + 1;
@@ -27,6 +34,11 @@ export default function Like({ votes, id }) {
   };
 
   const handleDisLike = () => {
+    if (!user) {
+      setError("You must be signed in to vote");
+      return;
+    }
+
     if (!isDisliked) {
       setLikeCount((currCount) => {
         return currCount - 1;
@@ -107,7 +119,7 @@ export default function Like({ votes, id }) {
           <span className="sr-only">Icon description</span>
         </button>
       </div>
-      {error && <ErrorMessage error={error} />}
+      {error && <ErrorMessage error={error} setError={setError} />}
     </>
   );
 }
