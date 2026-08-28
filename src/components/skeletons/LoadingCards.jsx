@@ -1,26 +1,41 @@
 export const LoadingCards = () => {
-  let formattedLoadingCards = [];
+  const loadingCards = [];
 
-  for (let i = 0; i < 10; i++) {
-    formattedLoadingCards.push(
-      <div key={i} className="p-4 md:w-1/3">
-        <div className="h-full border-2 border-gray-200 rounded-lg overflow-hidden">
-          <div className="lg:h-48 bg-gray-400 md:h-36 w-full object-cover object-center"></div>
+  for (let i = 0; i < 9; i++) {
+    loadingCards.push(
+      <div key={i} className="p-4 w-full md:w-1/3">
+        <div className="relative isolate h-full min-h-[360px] border-2 border-gray-200 rounded-lg overflow-hidden animate-pulse">
+          {/* Image */}
+          <div className="h-48 md:h-36 lg:h-48 w-full bg-gray-300"></div>
+
+          {/* Content */}
           <div className="p-6">
-            <h2 className="bg-gray-400 animate-pulse h-4 w-1/4 mb-2"></h2>
-            <h1 className="w-1/2 mb-4 h-6 animate-pulse bg-gray-500"></h1>
-            <p className="leading-relaxed mb-3 w-full h-3 animate-pulse bg-gray-400"></p>
-            <p className="leading-relaxed mb-3 w-2/3 h-3 animate-pulse bg-gray-400"></p>
-            <p className="leading-relaxed mb-3 w-1/2 h-3 animate-pulse bg-gray-400"></p>
-            <div className="flex items-center flex-wrap ">
-              <a className="bg-indigo-300 h-4 animate-pulse mt-2 w-32 inline-flex items-center md:mb-2 lg:mb-0"></a>
-              <span className="bg-indigo-300 w-16 mt-2 h-4 animate-pulse mr-3 px-2 inline-flex items-center ml-auto leading-none text-sm pr-5 py-1"></span>
+            {/* Category */}
+            <div className="h-3 w-20 bg-gray-300 rounded-full mb-3"></div>
+
+            {/* Topic */}
+            <div className="h-5 w-32 bg-gray-400 rounded-full mb-4"></div>
+
+            {/* Date */}
+            <div className="h-3 w-24 bg-gray-300 rounded-full mb-5"></div>
+
+            {/* Article title */}
+
+            <div className="h-4 w-full bg-gray-300 rounded-full mb-3"></div>
+            <div className="h-4 w-full bg-gray-300 rounded-full mb-3"></div>
+            <div className="h-4 w-5/6 bg-gray-300 rounded-full mb-3"></div>
+            <div className="h-4 w-2/3 bg-gray-300 rounded-full"></div>
+
+            {/* Stats */}
+            <div className="absolute bottom-0 right-0 mb-2 mr-2 flex items-center">
+              <div className="h-4 w-10 bg-gray-300 rounded-full mr-4"></div>
+              <div className="h-4 w-10 bg-gray-300 rounded-full"></div>
             </div>
           </div>
         </div>
-      </div>
+      </div>,
     );
   }
 
-  return <>{formattedLoadingCards}</>;
+  return <>{loadingCards}</>;
 };
