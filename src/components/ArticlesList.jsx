@@ -116,10 +116,7 @@ export default function ArticlesList({
 
   return (
     <section className="text-gray-700 body-font">
-      <div className="container px-5 py-10 mx-auto">
-        <p className="flex justify-center m-4">
-          {isLoading ? "Loading..." : null}
-        </p>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
         <div className="flex flex-wrap -m-4">
           {!isLoading ? formattedArticles : <LoadingCards />}
         </div>
