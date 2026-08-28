@@ -10,8 +10,8 @@ export default function NewComment({ article_id, setNewPost }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCommentPost = (e) => {
-    setIsLoading(true);
     e.preventDefault();
+    setIsLoading(true);
 
     const comment = { body, username: user.username };
 
@@ -29,7 +29,7 @@ export default function NewComment({ article_id, setNewPost }) {
   };
 
   return (
-    <div className="px-5 py-10 mx-auto">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
       {!user && (
         <div className="w-full mb-4 p-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
           <p className="text-white">
@@ -41,6 +41,7 @@ export default function NewComment({ article_id, setNewPost }) {
           </p>
         </div>
       )}
+
       {user && (
         <form onSubmit={handleCommentPost}>
           <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
@@ -48,18 +49,18 @@ export default function NewComment({ article_id, setNewPost }) {
               <label htmlFor="comment" className="sr-only">
                 Your comment
               </label>
+
               <textarea
                 id="comment"
                 rows="4"
                 className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                 placeholder="Write a comment..."
                 required
-                onChange={(e) => {
-                  setBody(e.target.value);
-                }}
+                onChange={(e) => setBody(e.target.value)}
                 value={body}
-              ></textarea>
+              />
             </div>
+
             <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600 border-gray-200">
               {isLoading ? (
                 <DisabledButton text="Submitting..." />

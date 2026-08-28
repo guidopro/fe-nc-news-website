@@ -46,7 +46,9 @@ export default function CommentsSection({ article_id, newPost }) {
 
   return (
     <>
-      <ol className="px-5">{formattedComments}</ol>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-6">
+        <ol className="m-0 p-0 list-none">{formattedComments}</ol>
+      </div>
     </>
   );
 }

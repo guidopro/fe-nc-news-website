@@ -37,7 +37,7 @@ export default function CommentCard({
   }
 
   return (
-    <li className="mb-10">
+    <li className="mb-6 last:mb-0">
       <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-xs dark:bg-gray-700 dark:border-gray-600">
         {isLoading ? (
           <div className="flex justify-center mb-3 p-3 h-10">
@@ -63,7 +63,7 @@ export default function CommentCard({
               </div>
 
               <div>
-                {user.username === author ? (
+                {user?.username === author ? (
                   isLoading ? null : (
                     <DeleteButton
                       handleCommentDeletion={handleCommentDeletion}
