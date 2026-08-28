@@ -17,17 +17,24 @@ import SignInPage from "./components/SignIn/SignInPage";
 function App() {
   return (
     <>
-      <SignIn />
-      <Header />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="articles?" element={<Home />} />
-        <Route path="articles/:topic" element={<Home />} />
-        <Route path="articles/:topic/:article_id" element={<SingleArticle />} />
-        <Route path="sign-in" element={<SignInPage />}></Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
+      <div className="min-h-screen flex flex-col">
+        <SignIn />
+        <Header />
+        <main className="flex-1">
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="articles?" element={<Home />} />
+            <Route path="articles/:topic" element={<Home />} />
+            <Route
+              path="articles/:topic/:article_id"
+              element={<SingleArticle />}
+            />
+            <Route path="sign-in" element={<SignInPage />}></Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
