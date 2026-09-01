@@ -1,32 +1,23 @@
 import { useEffect, useState } from "react";
 import { LoadingCards } from "./skeletons/LoadingCards";
 import { getArticles } from "../api-requests/api-requests-axios";
-import {
-  Link,
-  useSearchParams,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ErrorComponent } from "./Error";
 import { dateParser } from "../functions/functions";
 import urlNavBuilder from "../functions/urlNavBuilder";
+import FilterFeature from "./FilterFeature/FilterFeature";
 
-export default function ArticlesList({
-  setArticleCount,
-  topic,
-  page,
-  sortBy,
-  order,
-}) {
-  // const { topic } = useParams();
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const sortByQ = searchParams.get("sort_by");
-  // const orderQ = searchParams.get("order");
-  // const pageQ = searchParams.get("p");
-
+export default function ArticlesList() {
+  // states
+  const [articleCount, setArticleCount] = useState(0);
+  const [topic, setTopic] = useState(null);
+  const [page, setPage] = useState(null);
+  const [sortBy, setSortBy] = useState(null);
+  const [order, setOrder] = useState(null);
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -115,10 +106,19 @@ export default function ArticlesList({
   });
 
   return (
-    <section className="text-gray-700 body-font">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-        <div className="flex flex-wrap -m-4">
-          {!isLoading ? formattedArticles : <LoadingCards />}
+    <section className="bg-gray-100">
+      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+        <div className="flex flex-col gap-6">
+          <FilterFeature
+            setPage={setPage}
+            setTopic={setTopic}
+            setSortBy={setSortBy}
+            setOrder={setOrder}
+          />
+
+          <div className="flex flex-wrap -m-4">
+            {!isLoading ? formattedArticles : <LoadingCards />}
+          </div>
         </div>
       </div>
     </section>

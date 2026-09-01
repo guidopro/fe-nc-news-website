@@ -39,36 +39,18 @@ function App() {
 }
 
 const Home = () => {
-  const [topic, setTopic] = useState(null);
-  const [sortBy, setSortBy] = useState(null);
-  const [order, setOrder] = useState(null);
-  const [page, setPage] = useState(null);
   const [limit, setLimit] = useState(10);
-
-  const [articleCount, setArticleCount] = useState(0);
 
   return (
     <>
       <Intro />
-      <FilterFeature
-        setPage={setPage}
-        setTopic={setTopic}
-        setSortBy={setSortBy}
-        setOrder={setOrder}
-      />
-      <ArticlesList
-        setArticleCount={setArticleCount}
-        topic={topic}
-        page={page}
-        sortBy={sortBy}
-        order={order}
-      />
-      <Pagination
+      <ArticlesList />
+      {/* <Pagination
         articleCount={articleCount}
         setPage={setPage}
         page={page}
         limit={limit}
-      />
+      /> */}
     </>
   );
 };

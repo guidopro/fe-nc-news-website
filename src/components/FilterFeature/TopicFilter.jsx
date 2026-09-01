@@ -38,7 +38,7 @@ export default function TopicFilter({ setPage, setTopic }) {
 
   return (
     <Menu as="div" className="relative inline-block">
-      <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-black inset-ring-1 inset-ring-white/5 hover:bg-white/20 cursor-pointer">
+      <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-black inset-ring-1 inset-ring-white/5 hover:bg-white/20 cursor-pointer">
         Topics
         <ChevronDownIcon
           aria-hidden="true"
