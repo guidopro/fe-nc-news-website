@@ -111,8 +111,11 @@ export default function ArticlesList() {
         <div className="flex flex-col gap-6">
           <FilterFeature
             setPage={setPage}
+            topic={topic}
             setTopic={setTopic}
+            sortBy={sortBy}
             setSortBy={setSortBy}
+            order={order}
             setOrder={setOrder}
           />
 
