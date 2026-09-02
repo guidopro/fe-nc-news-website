@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { getTopics } from "../api-requests/api-requests-axios";
+import { getTopics } from "../../api-requests/api-requests-axios";
 
 export default function TopicSelect({ setPage, setTopic }) {
   let { topic } = useParams();
