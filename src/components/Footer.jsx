@@ -3,7 +3,7 @@ export default function Footer() {
   const year = date.getFullYear();
 
   return (
-    <footer className="flex justify-center border-t-1 p-5 mt-[20px] gap-3 bg-gray-500">
+    <footer className="flex justify-center border-t-1 p-5 gap-3 bg-gray-500">
       <span>© Guy Middleton {year}</span>
       <a href="https://www.linkedin.com/in/guy-middleton-dev/">
         <span>
