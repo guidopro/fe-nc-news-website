@@ -1,20 +1,20 @@
 export default function urlNavBuilder(topic, page, sortBy, order) {
-  let url = `/articles`;
+  let url = "/articles";
 
   if (topic) {
     url += `/${topic}`;
   }
 
-  if (page) {
-    url += `?page=${page}`;
-  }
+  const params = new URLSearchParams();
 
-  if (sortBy) {
-    url += `&sortBy=${sortBy}`;
-  }
+  if (page) params.set("page", page);
+  if (sortBy) params.set("sortBy", sortBy);
+  if (order) params.set("order", order);
 
-  if (order) {
-    url += `&order=${order}`;
+  const queryString = params.toString();
+
+  if (queryString) {
+    url += `?${queryString}`;
   }
 
   return url;

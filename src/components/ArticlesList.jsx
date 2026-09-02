@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import { LoadingCards } from "./skeletons/LoadingCards";
 import { getArticles } from "../api-requests/api-requests-axios";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { ErrorComponent } from "./Error";
 import { dateParser } from "../functions/functions";
 import urlNavBuilder from "../functions/urlNavBuilder";
 import FilterFeature from "./FilterFeature/FilterFeature";
 
 export default function ArticlesList() {
+  const { topic: urlTopic } = useParams();
+
+  const [searchParams] = useSearchParams();
+
   // states
   const [articleCount, setArticleCount] = useState(0);
-  const [topic, setTopic] = useState(null);
-  const [page, setPage] = useState(null);
-  const [sortBy, setSortBy] = useState(null);
-  const [order, setOrder] = useState(null);
+  const [topic, setTopic] = useState(urlTopic || null);
+  const [page, setPage] = useState(
+    searchParams.get("page") ? Number(searchParams.get("page")) : null,
+  );
+  const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || null);
+  const [order, setOrder] = useState(searchParams.get("order") || null);
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
