@@ -11,7 +11,6 @@ import Header from "./components/Header";
 import Intro from "./components/Intro";
 import SignIn from "./components/SignIn/SignIn";
 import SignInPage from "./components/SignIn/SignInPage";
-import FilterFeature from "./components/FilterFeature/FilterFeature";
 
 function App() {
   return (
