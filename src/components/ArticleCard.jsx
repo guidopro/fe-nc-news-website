@@ -4,33 +4,33 @@ import { dateParser } from "../functions/functions";
 export default function ArticleCard({ article }) {
   return (
     <div className="p-4 md:w-1/3">
-      <div className="relative isolate h-full border-2 border-gray-200 rounded-lg overflow-hidden hover:bg-zinc-400 hover:scale-101">
+      <div className="relative isolate h-full overflow-hidden rounded-lg border-2 border-gray-200 bg-white transition hover:-translate-y-1 hover:border-gray-300 hover:shadow-md">
         <img
-          className="lg:h-48 md:h-36 w-full object-cover object-center"
+          className="h-48 w-full object-cover object-center"
           src={article.article_img_url}
           alt={article.title}
         />
 
         <div className="p-6">
-          <h2 className="tracking-widest text-xs title-font font-medium text-gray-700 mb-1">
-            CATEGORY
+          <h2 className="mb-2 text-sm font-medium uppercase tracking-widest text-gray-500">
+            {article.topic}
           </h2>
-          <h1 className="title-font text-lg font-medium text-gray-900 mb-3 capitalize">
+
+          <h1 className="mb-3 text-lg font-medium text-gray-900">
             <Link to={`/articles/${article.topic}/${article.article_id}`}>
               <span className="absolute inset-0 z-10"></span>
-              {article.topic}
+              {article.title}
             </Link>
           </h1>
-          <div className="flex">
-            <time className="mb-4 font-light">
-              {dateParser(article.created_at)}
-            </time>
-          </div>
-          <p className="leading-relaxed mb-3">{article.title}</p>
-          <div className="absolute bottom-0 right-0 mb-2 mr-2">
-            <span className="text-gray-600 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-300">
+
+          <time className="mb-4 block text-sm font-light text-gray-600">
+            {dateParser(article.created_at)}
+          </time>
+
+          <div className="absolute bottom-0 right-0 mb-2 mr-2 flex">
+            <span className="mr-3 inline-flex items-center border-r-2 border-gray-300 pr-3 text-sm leading-none text-gray-600">
               <svg
-                className="w-4 h-4 mr-1"
+                className="mr-1 h-4 w-4"
                 stroke="currentColor"
                 strokeWidth="2"
                 fill="none"
@@ -42,9 +42,10 @@ export default function ArticleCard({ article }) {
               </svg>
               {article.votes}
             </span>
-            <span className="text-gray-600 inline-flex items-center leading-none text-sm">
+
+            <span className="inline-flex items-center text-sm leading-none text-gray-600">
               <svg
-                className="w-4 h-4 mr-1"
+                className="mr-1 h-4 w-4"
                 stroke="currentColor"
                 strokeWidth="2"
                 fill="none"
