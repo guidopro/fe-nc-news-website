@@ -75,7 +75,7 @@ export default function ArticlesList() {
             order={order}
             setOrder={setOrder}
           />
-          <div className="flex flex-wrap -m-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {!isLoading ? formattedArticles : <LoadingCards />}
           </div>
           <Pagination
