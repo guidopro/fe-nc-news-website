@@ -12,6 +12,7 @@ import { dateParser } from "../functions/functions";
 import urlNavBuilder from "../functions/urlNavBuilder";
 import FilterFeature from "./FilterFeature/FilterFeature";
 import ArticleCard from "./ArticleCard";
+import Pagination from "./Pagination";
 
 export default function ArticlesList() {
   const { topic: urlTopic } = useParams();
@@ -27,6 +28,8 @@ export default function ArticlesList() {
   const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || null);
   const [order, setOrder] = useState(searchParams.get("order") || null);
   const [articles, setArticles] = useState([]);
+  const [limit, setLimit] = useState(9);
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -37,7 +40,7 @@ export default function ArticlesList() {
     navigate(url);
     setError(null);
     setIsLoading(true);
-    getArticles(topic, sortBy, order, page)
+    getArticles(topic, sortBy, order, page, limit)
       .then(({ data }) => {
         setArticleCount(data.total_count);
         setArticles(data.articles);
@@ -72,10 +75,15 @@ export default function ArticlesList() {
             order={order}
             setOrder={setOrder}
           />
-
-          <div className="flex flex-wrap -m-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {!isLoading ? formattedArticles : <LoadingCards />}
           </div>
+          <Pagination
+            articleCount={articleCount}
+            setPage={setPage}
+            page={page}
+            limit={limit}
+          />
         </div>
       </div>
     </section>
