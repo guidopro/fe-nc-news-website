@@ -5,9 +5,9 @@ const apiClient = axios.create({
   // timeout: 1000,
 });
 
-export const getArticles = async (topic, sort_by, order, p) => {
+export const getArticles = async (topic, sort_by, order, p, limit) => {
   return await apiClient.get("/articles", {
-    params: { topic, sort_by, order, p },
+    params: { topic, sort_by, order, p, limit },
   });
 };
 

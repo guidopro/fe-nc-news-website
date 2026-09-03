@@ -40,18 +40,10 @@ function App() {
 }
 
 const Home = () => {
-  const [limit, setLimit] = useState(10);
-
   return (
     <>
       <Intro />
       <ArticlesList />
-      {/* <Pagination
-        articleCount={articleCount}
-        setPage={setPage}
-        page={page}
-        limit={limit}
-      /> */}
     </>
   );
 };
