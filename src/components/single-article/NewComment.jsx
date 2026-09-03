@@ -31,21 +31,24 @@ export default function NewComment({ article_id, setNewPost }) {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
       {!user && (
-        <div className="w-full mb-4 p-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-          <p className="text-white">
+        <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-4">
+          <p className="text-sm text-gray-600">
             Please{" "}
-            <Link to="/sign-in" className="text-blue-500">
+            <Link
+              to="/sign-in"
+              className="font-medium text-blue-950 hover:underline"
+            >
               sign in
             </Link>{" "}
-            to leave comment...
+            to leave a comment.
           </p>
         </div>
       )}
 
       {user && (
         <form onSubmit={handleCommentPost}>
-          <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+          <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+            <div className="p-4">
               <label htmlFor="comment" className="sr-only">
                 Your comment
               </label>
@@ -53,7 +56,7 @@ export default function NewComment({ article_id, setNewPost }) {
               <textarea
                 id="comment"
                 rows="4"
-                className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                className="w-full resize-y border-0 p-0 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-0"
                 placeholder="Write a comment..."
                 required
                 onChange={(e) => setBody(e.target.value)}
@@ -61,7 +64,7 @@ export default function NewComment({ article_id, setNewPost }) {
               />
             </div>
 
-            <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600 border-gray-200">
+            <div className="flex items-center justify-end border-t border-gray-100 bg-gray-50 px-4 py-3">
               {isLoading ? (
                 <DisabledButton text="Submitting..." />
               ) : (

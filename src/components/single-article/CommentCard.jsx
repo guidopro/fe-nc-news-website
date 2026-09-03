@@ -20,16 +20,17 @@ export default function CommentCard({
   const { user } = useContext(UserContext);
 
   const [commentAuthor, setCommentAuthor] = useState({});
-  const [isLoading, setIsLoading] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getUsername(author).then((user) => {
       setCommentAuthor(user);
     });
-  }, []);
+  }, [author]);
 
   function handleCommentDeletion() {
     setIsLoading(true);
+
     deleteComment(commentId).then(() => {
       setCommentDelete((prevState) => !prevState);
       setIsLoading(false);
@@ -37,50 +38,48 @@ export default function CommentCard({
   }
 
   return (
-    <li className="mb-6 last:mb-0">
-      <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-xs dark:bg-gray-700 dark:border-gray-600">
+    <li>
+      <article className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
         {isLoading ? (
-          <div className="flex justify-center mb-3 p-3 h-10">
+          <div className="flex h-10 items-center justify-center">
             <Spinner />
           </div>
         ) : (
           <>
-            <div className="flex justify-between mb-3 ">
-              <div className="flex items-center">
-                <span className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full -start-3 ring-2 ring-blue overflow-hidden mr-3">
+            <div className="mb-4 flex items-start justify-between gap-4">
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100">
                   <img
-                    className="rounded-full"
+                    className="h-full w-full object-cover"
                     src={commentAuthor.avatar_url}
-                    alt={`${author} author image`}
+                    alt={`${author} author`}
                   />
-                </span>
-                <div className="text-sm font-normal text-gray-500 lex dark:text-gray-300 mr-3">
-                  {author}
                 </div>
-                <time className="mb-1 text-xs font-normal text-gray-400 sm:mb-0">
-                  {dateParser(createdAt)}
-                </time>
+
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-gray-900">{author}</p>
+
+                  <time className="text-xs text-gray-400">
+                    {dateParser(createdAt)}
+                  </time>
+                </div>
               </div>
 
-              <div>
-                {user?.username === author ? (
-                  isLoading ? null : (
-                    <DeleteButton
-                      handleCommentDeletion={handleCommentDeletion}
-                    />
-                  )
-                ) : null}
-              </div>
+              {user?.username === author && (
+                <DeleteButton handleCommentDeletion={handleCommentDeletion} />
+              )}
             </div>
-            <div className="p-3 text-xs italic font-normal text-gray-500 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300">
+
+            <p className="whitespace-pre-line text-sm leading-6 text-gray-700">
               {body}
-            </div>
-            <div className="flex justify-center mt-4">
+            </p>
+
+            <div className="mt-5 flex justify-center border-t border-gray-100 pt-4">
               <LikeComment votes={votes} id={commentId} />
             </div>
           </>
         )}
-      </div>
+      </article>
     </li>
   );
 }
