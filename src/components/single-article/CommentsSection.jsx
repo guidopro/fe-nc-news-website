@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  getCommentsByArticleId,
-  getUsername,
-  getUsers,
-} from "../../api-requests/api-requests-axios";
+import { getCommentsByArticleId } from "../../api-requests/api-requests-axios";
 import CommentCard from "./CommentCard";
 
 export default function CommentsSection({ article_id, newPost }) {
@@ -14,6 +10,7 @@ export default function CommentsSection({ article_id, newPost }) {
 
   useEffect(() => {
     setIsLoading(true);
+
     getCommentsByArticleId(article_id)
       .then((comments) => {
         setComments(comments);
@@ -24,31 +21,46 @@ export default function CommentsSection({ article_id, newPost }) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [newPost, commentDelete]);
-
-  const formattedComments = comments.map((comment) => {
-    return (
-      <CommentCard
-        key={comment.comment_id}
-        commentId={comment.comment_id}
-        createdAt={comment.created_at}
-        author={comment.author}
-        body={comment.body}
-        setCommentDelete={setCommentDelete}
-        votes={comment.votes}
-      />
-    );
-  });
+  }, [article_id, newPost, commentDelete]);
 
   if (error) {
-    return <p>{error.message}</p>;
+    return (
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-6">
+        <p className="text-sm text-red-600">{error.message}</p>
+      </div>
+    );
   }
 
   return (
-    <>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-6">
-        <ol className="m-0 p-0 list-none">{formattedComments}</ol>
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-8">
+      <div className="mb-5">
+        <h2 className="text-xl font-semibold text-gray-900">Comments</h2>
+        <p className="mt-1 text-sm text-gray-500">Join the conversation.</p>
       </div>
-    </>
+
+      {isLoading ? (
+        <div className="py-6 text-center text-sm text-gray-500">
+          Loading comments...
+        </div>
+      ) : comments.length === 0 ? (
+        <p className="py-6 text-sm text-gray-500">
+          No comments yet. Be the first to comment.
+        </p>
+      ) : (
+        <ol className="m-0 list-none space-y-4 p-0">
+          {comments.map((comment) => (
+            <CommentCard
+              key={comment.comment_id}
+              commentId={comment.comment_id}
+              createdAt={comment.created_at}
+              author={comment.author}
+              body={comment.body}
+              setCommentDelete={setCommentDelete}
+              votes={comment.votes}
+            />
+          ))}
+        </ol>
+      )}
+    </section>
   );
 }
