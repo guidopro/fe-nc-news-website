@@ -3,14 +3,27 @@ import { getTopics } from "../../api-requests/api-requests-axios";
 
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import Spinner from "../Spinner";
+import ErrorMessage from "../ErrorMessage";
 
 export default function TopicFilter({ setPage, setTopic }) {
   const [allTopics, setAllTopics] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getTopics().then((topics) => {
-      setAllTopics(topics);
-    });
+    setLoading(true);
+    getTopics()
+      .then((topics) => {
+        setAllTopics(topics);
+      })
+      .catch((error) => {
+        console.error(error);
+        setError("Unable to load topics. Please try again.");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   function handleTopic(topic) {
@@ -29,17 +42,27 @@ export default function TopicFilter({ setPage, setTopic }) {
         transition
         className="absolute right-0 z-10 mt-2 max-h-80 w-48 origin-top-right overflow-y-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg outline-none transition data-closed:scale-95 data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
       >
-        {allTopics.map((topic) => (
-          <MenuItem key={topic.slug}>
-            <button
-              type="button"
-              onClick={() => handleTopic(topic.slug)}
-              className="block w-full px-4 py-2 text-left text-sm capitalize text-gray-700 data-focus:bg-gray-50 data-focus:text-gray-900 data-focus:outline-none cursor-pointer"
-            >
-              {topic.slug}
-            </button>
-          </MenuItem>
-        ))}
+        {loading ? (
+          <div className="flex h-10 items-center justify-center">
+            <Spinner />
+          </div>
+        ) : error ? (
+          <ErrorMessage error={error} setError={setError} />
+        ) : (
+          <>
+            {allTopics.map((topic) => (
+              <MenuItem key={topic.slug}>
+                <button
+                  type="button"
+                  onClick={() => handleTopic(topic.slug)}
+                  className="block w-full px-4 py-2 text-left text-sm capitalize text-gray-700 data-focus:bg-gray-50 data-focus:text-gray-900 data-focus:outline-none cursor-pointer"
+                >
+                  {topic.slug}
+                </button>
+              </MenuItem>
+            ))}
+          </>
+        )}
       </MenuItems>
     </Menu>
   );
