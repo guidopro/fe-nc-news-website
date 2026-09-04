@@ -43,17 +43,18 @@ export default function SingleArticle() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
           <GoBackButton />
 
-          <article className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <article className="mt-6 rounded-xl border border-gray-200 bg-white shadow-sm">
             {isLoading ? (
               <LoadingSingleArticle />
             ) : (
               <>
-                <img
-                  className="w-full h-64 sm:h-80 md:h-[420px] object-cover object-center"
-                  src={article.article_img_url}
-                  alt={article.title}
-                />
-
+                <div className="overflow-hidden rounded-t-xl">
+                  <img
+                    className="w-full h-64 sm:h-80 md:h-[420px] object-cover object-center"
+                    src={article.article_img_url}
+                    alt={article.title}
+                  />
+                </div>
                 <div className="p-6 sm:p-8 md:p-10">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4 text-sm text-gray-500">
                     <span className="font-medium text-gray-700 capitalize">
