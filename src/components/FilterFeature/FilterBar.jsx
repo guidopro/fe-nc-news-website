@@ -5,6 +5,7 @@ export default function FilterBar({
   setSortBy,
   order,
   setOrder,
+  setPage
 }) {
   const sortLabels = {
     "created_at-desc": "Newest",
@@ -36,6 +37,7 @@ export default function FilterBar({
           className="font-bold opacity-60 hover:opacity-100 cursor-pointer"
           onClick={() => {
             setFilter(null);
+            setPage(1)
           }}
           aria-label={`Remove ${filterName} filter`}
         >
@@ -58,6 +60,7 @@ export default function FilterBar({
           setOrder(null);
           setTopic(null);
           setSortBy(null);
+          setPage(1)
         }}
       >
         Reset Filter
